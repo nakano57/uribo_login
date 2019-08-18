@@ -4,7 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 
 
-class uribou:
+class uribo:
 
     def __init__(self):
         uri_url = 'https://kym-web.ofc.kobe-u.ac.jp/campusweb'
@@ -65,7 +65,7 @@ class uribou:
 
     def _schedule(self):
         wait = True
-        interval = 5
+        interval = 60*15
         base_time = time.time()
         next_time = 0
         while True:
@@ -79,7 +79,7 @@ class uribou:
 
 if __name__ == "__main__":
 
-    uri = uribou()
+    uri = uribo()
 
     # 引数で渡す以外に以下のように指定することもできます
     # uri.id = 'YOUR USER ID'
