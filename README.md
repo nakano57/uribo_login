@@ -1,6 +1,7 @@
 # Introduction
 
 - ID と PASS を指定すればうりぼーネットにログインして Session を返します
+- `import uribo`していろんなことに使ってください
 - 作りかけです
 - schedule 使わないなら time と threading はコメントアウトして OK
 
