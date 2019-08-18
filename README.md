@@ -2,6 +2,7 @@
 
 - ID と PASS を指定すればうりぼーネットにログインして Session を返します
 - 作りかけです
+- schedule 使わないなら time と threading はコメントアウトして OK
 
 ## 作りかけの部分
 
