@@ -1,22 +1,29 @@
 import time
 import threading
 import requests
+import keys
 from bs4 import BeautifulSoup
 
+from selenium import webdriver
 
-class uribo:
 
-    def __init__(self):
+class uribo(requests.Session):
+
+    def __init__(self, **kwargs):
+        super().__init__()
+
         uri_url = 'https://kym-web.ofc.kobe-u.ac.jp/campusweb'
         self.id = ''
         self.password = ''
         self.schedule = False
 
-        self.session = requests.session()
-        self.res = self.session.get(uri_url)
+        #self.session = requests.session()
+        self.res = self.get(uri_url)
         self.soup = BeautifulSoup(self.res.text, "html.parser")
 
-    def login(self, **kwargs):
+        self._login_swither(**kwargs)
+
+    def _login_swither(self, **kwargs):
         if len(kwargs) == 2:
             self.id = kwargs['id']
             self.password = kwargs['password']
@@ -31,8 +38,6 @@ class uribo:
         else:
             self._login()
 
-        return self.session
-
     def _login(self, **kwargs):
 
         self.back = self.soup.find(
@@ -45,7 +50,7 @@ class uribo:
             'back': self.back
         }
         adress = self.res.url
-        res2 = self.session.post(adress, data=login_info)
+        res2 = self.post(adress, data=login_info)
         logined = BeautifulSoup(res2.text, "html.parser")
 
         login_info2 = {
@@ -55,9 +60,8 @@ class uribo:
         }
 
         adress = logined.find('form').get('action')
-        self.session.post(adress, data=login_info2)
+        self.post(adress, data=login_info2)
         print('Sucsess')
-        return self.session
 
     # 作りかけ
     def _extend(self):
@@ -79,16 +83,27 @@ class uribo:
 
 if __name__ == "__main__":
 
-    uri = uribo()
+    # これだけでuriはうりぼーネットにログイン済みのCookieを持ったrequests.sessionと同じになります
+    # Sessionと同じなので uri.get(アドレス)してもいいし何でもできます
+    uri = uribo(id=keys.userid,
+                password=keys.passwd)
+    res = uri.get('https://kym-web.ofc.kobe-u.ac.jp/campusweb')
 
-    # 引数で渡す以外に以下のように指定することもできます
-    # uri.id = 'YOUR USER ID'
-    # uri.password = 'YOUR PASSWORD'
-    # uri.schedule=True
+    # ログインしたCookieの情報をseleniumに渡したいときは以下のようにします
 
-    session = uri.login(id='YOUR USER ID',
-                        password='YOUR PASSWORD',
-                        )
+    # とりまDriverの指定
+    driver = webdriver.Chrome()
+    # 一度なんか開いておかないとエラーが出る
+    driver.get('https://example.com')
 
-    res = session.get('https://kym-web.ofc.kobe-u.ac.jp/campusweb')
-    print(res.text)
+    # uriからCookieをもらう。辞書型で帰ってくる
+    cookie = uri.cookies.get_dict()
+
+    # 渡す
+    for cookie_value in cookie:
+        driver.add_cookie({'name': cookie_value,
+                           'value': cookie[cookie_value],
+                           'domain': 'kobe-u.ac.jp'})
+
+    # ログイン後のページを表示
+    driver.get('https://kym-web.ofc.kobe-u.ac.jp/campusweb')

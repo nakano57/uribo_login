@@ -1,6 +1,6 @@
 # Introduction
 
-- ID と PASS を指定すればうりぼーネットにログインして Session を返します
+- requests.Session を継承したので宣言するだけで使えるようになりました
 - `import uribo`していろんなことに使ってください
 - 作りかけです
 - schedule 使わないなら time と threading はコメントアウトして OK
