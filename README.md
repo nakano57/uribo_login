@@ -4,6 +4,7 @@
 - `import uribo`していろんなことに使ってください
 - 作りかけです
 - schedule 使わないなら time と threading はコメントアウトして OK
+- import keys は消していいです
 
 ## 作りかけの部分
 
