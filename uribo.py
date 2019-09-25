@@ -1,5 +1,8 @@
+#!python3
+
 import time
 import threading
+
 import requests
 from bs4 import BeautifulSoup
 
@@ -95,7 +98,7 @@ if __name__ == "__main__":
     # ログインしたCookieの情報をseleniumに渡したいときは以下のようにします
 
     # とりまDriverの指定
-    driver = webdriver.Chrome()
+    driver = webdriver.Safari()
     # 一度なんか開いておかないとエラーが出る
     driver.get('https://example.com')
 
@@ -110,3 +113,5 @@ if __name__ == "__main__":
 
     # ログイン後のページを表示
     driver.get('https://kym-web.ofc.kobe-u.ac.jp/campusweb')
+
+    # driver.close()
