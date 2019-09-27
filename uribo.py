@@ -66,7 +66,7 @@ class login(requests.Session):
 
         adress = logined.find('form').get('action')
         self.post(adress, data=login_info2)
-        print('Sucsess')
+        print('Login Sucsess')
 
     # 作りかけ
     def _extend(self):
