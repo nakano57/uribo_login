@@ -98,7 +98,7 @@ if __name__ == "__main__":
     # ログインしたCookieの情報をseleniumに渡したいときは以下のようにします
 
     # とりまDriverの指定
-    driver = webdriver.Safari()
+    driver = webdriver.Chrome()
     # 一度なんか開いておかないとエラーが出る
     driver.get('https://example.com')
 
