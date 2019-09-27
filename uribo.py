@@ -12,7 +12,7 @@ from selenium import webdriver
 import keys
 
 
-class uribo(requests.Session):
+class login(requests.Session):
 
     def __init__(self, **kwargs):
         super().__init__()
@@ -91,7 +91,7 @@ if __name__ == "__main__":
     # これだけでuriはうりぼーネットにログイン済みのCookieを持ったrequests.sessionと同じになります
     # Sessionと同じなので uri.get(アドレス)してもいいし何でもできます
     # keys.useridとkeys.passwdを適宜自分のものに置き換えてください
-    uri = uribo(id=keys.userid,
+    uri = login(id=keys.userid,
                 password=keys.passwd)
     res = uri.get('https://kym-web.ofc.kobe-u.ac.jp/campusweb')
 
